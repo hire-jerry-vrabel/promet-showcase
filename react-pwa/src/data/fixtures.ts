@@ -26,7 +26,7 @@ export const FIXTURE_ITEMS: ShowcaseItem[] = [
     id: 2,
     title: 'Component-Driven CMS with Provus',
     summary:
-      'A deep dive into Promet Source's Provus layout system — building reusable, ' +
+      "A deep dive into Promet Source's Provus layout system — building reusable, " +
       'accessible section components that content editors can compose without ' +
       'developer involvement.',
     category: 'CMS',

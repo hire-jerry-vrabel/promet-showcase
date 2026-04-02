@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/ShowcaseCard.tsx","./src/data/fixtures.ts","./src/hooks/useShowcaseItems.ts","./src/types/showcase.ts"],"version":"5.9.3"}
