@@ -49,7 +49,7 @@ export function ShowcaseCard({ item, index }: Props) {
 
       {item.projectUrl && (
         <footer className={styles.footer}>
-          
+          <a
             href={item.projectUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -57,7 +57,7 @@ export function ShowcaseCard({ item, index }: Props) {
             aria-label={`${item.projectUrlTitle ?? 'View Project'} (opens in new tab)`}
           >
             <span aria-hidden="true">{item.projectUrlTitle ?? 'View Project'}</span>
-            <span aria-hidden="true" className={styles.arrow}>→</span>
+            <span aria-hidden="true" className={styles.arrow}>{'→'}</span>
           </a>
         </footer>
       )}

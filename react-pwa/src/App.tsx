@@ -14,10 +14,11 @@ export default function App() {
             <span className="logo-mark" aria-hidden="true">PS</span>
             <div>
               <h1 className="site-title">Promet Showcase</h1>
-              <p className="site-subtitle">Decoupled Drupal · React · TypeScript</p>
+              <p className="site-subtitle">Decoupled Drupal &middot; React &middot; TypeScript</p>
             </div>
           </div>
           
+            <a
             href="https://github.com/hire-jerry-vrabel/promet-showcase"
             target="_blank"
             rel="noopener noreferrer"
@@ -33,9 +34,10 @@ export default function App() {
       <main id="main-content" className="main">
         {usingFallback && (
           <div className="fallback-banner" role="status">
-            <span className="fallback-icon" aria-hidden="true">ℹ</span>
-            Displaying sample data — Drupal API not reachable from this origin.{' '}
+            <span className="fallback-icon" aria-hidden="true">i</span>
+            Displaying sample data &mdash; Drupal API not reachable from this origin.{' '}
             
+              <a
               href="https://github.com/hire-jerry-vrabel/promet-showcase#readme"
               target="_blank"
               rel="noopener noreferrer"
@@ -49,7 +51,7 @@ export default function App() {
         {result.status === 'loading' && (
           <div className="loading" role="status" aria-live="polite">
             <div className="spinner" aria-hidden="true" />
-            <span>Fetching from Drupal…</span>
+            <span>Fetching from Drupal...</span>
           </div>
         )}
 
@@ -77,13 +79,13 @@ export default function App() {
         <p>
           Built by{' '}
           
-            href="https://linkedin.com/in/forwardslash-development"
+           <a href="https://linkedin.com/in/forwardslash-development"
             target="_blank"
             rel="noopener noreferrer"
           >
             Jerry Vrabel
-          </a>{' '}
-          · Drupal 10 + React 19 + Vite 7 · Code sample for{' '}
+          </a>
+          {' '}&middot; Drupal 10 + React 19 + Vite 7 &middot; Code sample for{' '}
           <a href="https://www.prometsource.com" target="_blank" rel="noopener noreferrer">
             Promet Source
           </a>
