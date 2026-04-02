@@ -1,6 +1,6 @@
 # Promet Showcase
 
-> Code sample for [Promet Source](https://www.prometsource.com) — built by Jerry Vrabel (referred by Andrew Kucharski)
+> Code sample for [Promet Source](https://www.prometsource.com) — built by Jerry Vrabel
 
 A decoupled Drupal 10 + React 19 PWA demonstrating the architecture behind large-scale federal web properties. The same JSON:API + React pattern used across VA.gov, packaged as a focused, reviewable code sample.
 
