@@ -1,0 +1,66 @@
+name: Deploy Promet Showcase PWA
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Allow one concurrent deployment; cancel in-progress runs on new push.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: react-pwa/package-lock.json
+
+      - name: Install dependencies
+        working-directory: react-pwa
+        run: npm ci
+
+      - name: Type-check
+        working-directory: react-pwa
+        run: npm run type-check
+
+      - name: Build
+        working-directory: react-pwa
+        env:
+          # Set in repo Settings → Secrets and variables → Actions → Variables
+          # (not a secret — it's a public Pantheon sandbox URL)
+          VITE_DRUPAL_BASE_URL: ${{ vars.VITE_DRUPAL_BASE_URL }}
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: react-pwa/dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,121 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the Promet Showcase module.
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\node\Entity\NodeType;
+
+/**
+ * Implements hook_install().
+ *
+ * Creates the Promet Showcase content type and its fields.
+ */
+function promet_showcase_install(): void {
+  // Create the content type if it doesn't exist.
+  if (!NodeType::load('promet_showcase')) {
+    $node_type = NodeType::create([
+      'type'        => 'promet_showcase',
+      'name'        => 'Promet Showcase',
+      'description' => 'A showcase item demonstrating Promet Source capabilities.',
+      'new_revision' => TRUE,
+    ]);
+    $node_type->save();
+  }
+
+  // --- field_showcase_summary (plain text, short) ---
+  if (!FieldStorageConfig::loadByName('node', 'field_showcase_summary')) {
+    FieldStorageConfig::create([
+      'field_name'  => 'field_showcase_summary',
+      'entity_type' => 'node',
+      'type'        => 'string',
+      'settings'    => ['max_length' => 255],
+    ])->save();
+  }
+  if (!FieldConfig::loadByName('node', 'promet_showcase', 'field_showcase_summary')) {
+    FieldConfig::create([
+      'field_name'  => 'field_showcase_summary',
+      'entity_type' => 'node',
+      'bundle'      => 'promet_showcase',
+      'label'       => 'Summary',
+      'required'    => TRUE,
+    ])->save();
+  }
+
+  // --- field_showcase_category (plain text, taxonomy-style label) ---
+  if (!FieldStorageConfig::loadByName('node', 'field_showcase_category')) {
+    FieldStorageConfig::create([
+      'field_name'  => 'field_showcase_category',
+      'entity_type' => 'node',
+      'type'        => 'string',
+      'settings'    => ['max_length' => 128],
+    ])->save();
+  }
+  if (!FieldConfig::loadByName('node', 'promet_showcase', 'field_showcase_category')) {
+    FieldConfig::create([
+      'field_name'  => 'field_showcase_category',
+      'entity_type' => 'node',
+      'bundle'      => 'promet_showcase',
+      'label'       => 'Category',
+      'required'    => FALSE,
+    ])->save();
+  }
+
+  // --- field_showcase_url (external link) ---
+  if (!FieldStorageConfig::loadByName('node', 'field_showcase_url')) {
+    FieldStorageConfig::create([
+      'field_name'  => 'field_showcase_url',
+      'entity_type' => 'node',
+      'type'        => 'link',
+    ])->save();
+  }
+  if (!FieldConfig::loadByName('node', 'promet_showcase', 'field_showcase_url')) {
+    FieldConfig::create([
+      'field_name'  => 'field_showcase_url',
+      'entity_type' => 'node',
+      'bundle'      => 'promet_showcase',
+      'label'       => 'Project URL',
+      'required'    => FALSE,
+      'settings'    => [
+        'link_type'  => 16, // EXTERNAL
+        'title'      => 1,  // optional title
+      ],
+    ])->save();
+  }
+
+  \Drupal::messenger()->addStatus(t('Promet Showcase content type and fields installed.'));
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Removes fields and the content type created by this module.
+ */
+function promet_showcase_uninstall(): void {
+  // Delete field instances.
+  $fields = [
+    'field_showcase_summary',
+    'field_showcase_category',
+    'field_showcase_url',
+  ];
+
+  foreach ($fields as $field_name) {
+    $config = FieldConfig::loadByName('node', 'promet_showcase', $field_name);
+    if ($config) {
+      $config->delete();
+    }
+    $storage = FieldStorageConfig::loadByName('node', $field_name);
+    if ($storage) {
+      $storage->delete();
+    }
+  }
+
+  // Delete the content type.
+  $node_type = NodeType::load('promet_showcase');
+  if ($node_type) {
+    $node_type->delete();
+  }
+}

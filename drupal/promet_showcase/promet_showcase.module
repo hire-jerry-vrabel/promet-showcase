@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Promet Showcase module — primary hook implementations.
+ *
+ * Exposes Promet Showcase nodes to anonymous consumers via JSON:API.
+ * A companion custom REST resource at /api/promet-showcase provides a
+ * flattened, consumer-friendly payload for the decoupled React PWA.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_node_access_records().
+ *
+ * No custom access logic needed — we rely on Drupal core's "published"
+ * flag. This hook is present as a placeholder for future role-based rules.
+ */
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Ensures the 'promet_showcase' bundle always has a populated summary
+ * field before saving, preventing empty API responses.
+ */
+function promet_showcase_node_presave(EntityInterface $node): void {
+  if ($node->bundle() !== 'promet_showcase') {
+    return;
+  }
+
+  // Auto-populate summary from body if left blank.
+  if ($node->hasField('field_showcase_summary')
+    && $node->get('field_showcase_summary')->isEmpty()
+    && $node->hasField('body')
+    && !$node->get('body')->isEmpty()
+  ) {
+    $body_value = $node->get('body')->value ?? '';
+    $plain      = strip_tags((string) $body_value);
+    $truncated  = mb_substr($plain, 0, 240);
+    $node->set('field_showcase_summary', $truncated);
+  }
+}

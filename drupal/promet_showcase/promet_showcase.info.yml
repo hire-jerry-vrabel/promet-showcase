@@ -1,0 +1,10 @@
+name: Promet Showcase
+type: module
+description: 'Defines the Promet Showcase content type and exposes it via JSON:API and a custom REST resource. Built as a code sample demonstrating decoupled Drupal architecture.'
+package: Custom
+core_version_requirement: ^10
+dependencies:
+  - drupal:node
+  - drupal:rest
+  - drupal:serialization
+  - drupal:jsonapi

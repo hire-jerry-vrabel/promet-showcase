@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Drupal (never commit settings.php with credentials)
+drupal/*/sites/default/settings.php
+drupal/*/sites/default/files/
+
+# Node
+node_modules/
