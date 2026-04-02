@@ -20,11 +20,13 @@ function formatDate(unix: number): string {
 }
 
 export function ShowcaseCard({ item, index }: Props) {
-  const bgColor = CATEGORY_COLORS[item.category] ?? '#f5f5f5';
+  const bgColor = CATEGORY_COLORS[item.category] ?? '#f0f0f0';
+  const titleId = `card-title-${item.id}`;
 
   return (
     <article
       className={styles.card}
+      aria-labelledby={titleId}
       style={{
         animationDelay: `${index * 80}ms`,
         '--category-bg': bgColor,
@@ -34,23 +36,27 @@ export function ShowcaseCard({ item, index }: Props) {
         {item.category && (
           <span className={styles.category}>{item.category}</span>
         )}
-        <time className={styles.date} dateTime={new Date(item.created * 1000).toISOString()}>
+        <time
+          className={styles.date}
+          dateTime={new Date(item.created * 1000).toISOString()}
+        >
           {formatDate(item.created)}
         </time>
       </header>
 
-      <h2 className={styles.title}>{item.title}</h2>
+      <h2 id={titleId} className={styles.title}>{item.title}</h2>
       <p className={styles.summary}>{item.summary}</p>
 
       {item.projectUrl && (
         <footer className={styles.footer}>
-          <a
+          
             href={item.projectUrl}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.link}
+            aria-label={`${item.projectUrlTitle ?? 'View Project'} (opens in new tab)`}
           >
-            {item.projectUrlTitle ?? 'View Project'}
+            <span aria-hidden="true">{item.projectUrlTitle ?? 'View Project'}</span>
             <span aria-hidden="true" className={styles.arrow}>→</span>
           </a>
         </footer>

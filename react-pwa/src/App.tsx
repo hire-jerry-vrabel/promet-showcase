@@ -17,12 +17,12 @@ export default function App() {
               <p className="site-subtitle">Decoupled Drupal · React · TypeScript</p>
             </div>
           </div>
-          <a
+          
             href="https://github.com/hire-jerry-vrabel/promet-showcase"
             target="_blank"
             rel="noopener noreferrer"
             className="github-link"
-            aria-label="View source on GitHub"
+            aria-label="View source on GitHub (opens in new tab)"
           >
             <GitHubIcon />
             <span>Source</span>
@@ -30,17 +30,17 @@ export default function App() {
         </div>
       </header>
 
-      <main className="main">
+      <main id="main-content" className="main">
         {usingFallback && (
           <div className="fallback-banner" role="status">
             <span className="fallback-icon" aria-hidden="true">ℹ</span>
             Displaying sample data — Drupal API not reachable from this origin.{' '}
-            <a
+            
               href="https://github.com/hire-jerry-vrabel/promet-showcase#readme"
               target="_blank"
               rel="noopener noreferrer"
             >
-              See README
+              See README (opens in new tab)
             </a>{' '}
             for setup.
           </div>
@@ -76,7 +76,7 @@ export default function App() {
       <footer className="site-footer">
         <p>
           Built by{' '}
-          <a
+          
             href="https://linkedin.com/in/forwardslash-development"
             target="_blank"
             rel="noopener noreferrer"

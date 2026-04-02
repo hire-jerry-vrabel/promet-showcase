@@ -5,15 +5,16 @@
 }
 
 :root {
-  --blue:       #1a56db;
+  --blue:       #1251c5;
   --blue-light: #eff4ff;
   --ink:        #111827;
-  --muted:      #6b7280;
-  --border:     #e5e7eb;
+  --muted:      #4b5563;
+  --border:     #d1d5db;
   --bg:         #f9fafb;
   --white:      #ffffff;
   --radius:     12px;
   --max-w:      1100px;
+  --focus-ring: 0 0 0 3px #1251c5, 0 0 0 5px #ffffff;
 }
 
 html {
@@ -27,6 +28,29 @@ body {
   color: var(--ink);
   font-family: 'DM Sans', system-ui, sans-serif;
   line-height: 1.6;
+}
+
+/* ─── Skip link ──────────────────────────────────────────── */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  z-index: 100;
+  transition: top 0.1s;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: none;
+  box-shadow: var(--focus-ring);
 }
 
 /* ─── Layout ─────────────────────────────────────────────── */
@@ -123,6 +147,11 @@ body {
   color: var(--blue);
 }
 
+.github-link:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
 /* ─── Fallback banner ────────────────────────────────────── */
 
 .fallback-banner {
@@ -130,10 +159,10 @@ body {
   align-items: flex-start;
   gap: 0.6rem;
   background: var(--blue-light);
-  border: 1.5px solid #c3d9ff;
+  border: 1.5px solid #93b4f5;
   border-radius: var(--radius);
   padding: 0.85rem 1.1rem;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #1e3a5f;
   margin-bottom: 1.75rem;
   line-height: 1.5;
@@ -142,6 +171,12 @@ body {
 .fallback-banner a {
   color: var(--blue);
   font-weight: 600;
+}
+
+.fallback-banner a:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 2px;
 }
 
 .fallback-icon {
@@ -179,7 +214,7 @@ body {
 /* ─── Card grid ──────────────────────────────────────────── */
 
 .item-count {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--muted);
   margin: 0 0 1.25rem;
   font-variant-numeric: tabular-nums;
@@ -216,7 +251,7 @@ body {
 
 .site-footer p {
   margin: 0;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--muted);
 }
 
@@ -228,6 +263,22 @@ body {
 
 .site-footer a:hover {
   text-decoration: underline;
+}
+
+.site-footer a:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 2px;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    border-top-color: var(--blue);
+    opacity: 0.7;
+  }
 }
 
 /* ─── Responsive ─────────────────────────────────────────── */
